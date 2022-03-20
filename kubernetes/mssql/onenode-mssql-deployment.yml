@@ -5,8 +5,8 @@ metadata:
 spec:
   replicas: 1
   selector:
-     matchLabels:
-       app: onenode-mssql
+    matchLabels:
+      app: onenode-mssql
   template:
     metadata:
       labels:
@@ -17,28 +17,28 @@ spec:
       securityContext:
         fsGroup: 10001
       containers:
-      - name: onenode-mssql-container
-        image: mcr.microsoft.com/mssql/server:2019-latest
-        ports:
-        - containerPort: 1433
-        env:
-        - name: MSSQL_PID
-          value: "Developer"
-        - name: ACCEPT_EULA
-          value: "Y"
-        - name: SA_PASSWORD
-          value: "zaQ@1234"
-          # valueFrom:
-          #   secretKeyRef:
-          #     name: mssql
-          #     key: SA_PASSWORD 
-        volumeMounts:
-        - name: onenode-mssql-container-data
-          mountPath: /var/opt/data
+        - name: onenode-mssql-container
+          image: mcr.microsoft.com/mssql/server:2019-latest
+          ports:
+            - containerPort: 1433
+          env:
+            - name: MSSQL_PID
+              value: "Developer"
+            - name: ACCEPT_EULA
+              value: "Y"
+            - name: SA_PASSWORD
+              value: "zaQ@1234"
+              # valueFrom:
+              #   secretKeyRef:
+              #     name: mssql
+              #     key: SA_PASSWORD
+          volumeMounts:
+            - name: onenode-mssql-container-data
+              mountPath: /var/opt/data
       volumes:
-      - name: onenode-mssql-container-data
-        persistentVolumeClaim:
-          claimName: onenode-mssql-pvc
+        - name: onenode-mssql-container-data
+          persistentVolumeClaim:
+            claimName: onenode-mssql-pvc
 ---
 apiVersion: v1
 kind: Service
