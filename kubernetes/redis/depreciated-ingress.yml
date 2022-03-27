@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-redis-cluster
+spec:
+  rules:
+  - host: redis-cluster.doitsu.tech
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name:	redis-server-master
+            port:
+              number: 6379

@@ -1,6 +1,11 @@
 SERVER_NAME=opensearch
-# helm install ${SERVER_NAME} --set service.type=LoadBalancer \
-# --set replicas=1 \
-#  opensearch-project-helm-charts/opensearch --version 1.9.0
+DASHBOARD_SERVER_NAME=opensearch-dashboard
+NAMESPACE=opensearch
 
-helm install ${SERVER_NAME} -f opensearch-default-value.yml opensearch-project-helm-charts/opensearch --version 1.9.0 
+helm repo add opensearch-project-helm-charts https://opensearch-project.github.io/helm-charts
+
+kubectl create namespace ${NAMESPACE}
+helm install ${SERVER_NAME} -f opensearch-default-value.yml opensearch-project-helm-charts/opensearch --version 1.9.0 --namespace=${NAMESPACE}
+helm install ${DASHBOARD_SERVER_NAME} -f opensearch-dashboard-default-value.yml opensearch-project-helm-charts/opensearch-dashboards --version 1.3.1 --namespace=${NAMESPACE}
+kubectl apply -f ingress.yml --namespace=${NAMESPACE}
+kubectl apply -f ingress-dashboard.yml --namespace=${NAMESPACE}

@@ -2,15 +2,17 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: ingress-opensearch
+  annotations:
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
 spec:
   rules:
-  - host: kibana.doitsu.tech
+  - host: elasticserver.doitsu.tech
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name:	opensearch-dashboard-opensearch-dashboards
+            name:	opensearch-cluster-master
             port:
-              number: 5601 
+              number: 9200 
