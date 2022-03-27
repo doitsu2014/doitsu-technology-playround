@@ -14,7 +14,7 @@ roles:
   - data
   - remote_cluster_client
 
-replicas: 1 
+replicas: 2
 minimumMasterNodes: 1
 
 # if not set, falls back to parsing .Values.imageTag, then .Chart.appVersion.
@@ -264,8 +264,8 @@ service:
   labelsHeadless: {}
   headless:
     annotations: {}
-  type: NodePort
-  # type: ClusterIP
+  # type: NodePort
+  type: ClusterIP
   nodePort: ""
   annotations: {}
   httpPortName: http
