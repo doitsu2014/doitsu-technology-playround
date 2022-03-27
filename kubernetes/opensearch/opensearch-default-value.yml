@@ -264,8 +264,8 @@ service:
   labelsHeadless: {}
   headless:
     annotations: {}
-  # type: NodePort
-  type: ClusterIP
+  type: NodePort
+  # type: ClusterIP
   nodePort: ""
   annotations: {}
   httpPortName: http

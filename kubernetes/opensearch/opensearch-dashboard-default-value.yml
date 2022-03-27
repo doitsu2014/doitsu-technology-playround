@@ -106,7 +106,7 @@ hostAliases: []
 serverHost: "0.0.0.0"
 
 service:
-  # type: NodePort
+  # type: LoadBalancer
   type: ClusterIP
   port: 5601
   loadBalancerIP: ""

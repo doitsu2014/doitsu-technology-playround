@@ -4,16 +4,6 @@ metadata:
   name: ingress-opensearch
 spec:
   rules:
-  - host: elasticserver.doitsu.tech
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: opensearch-cluster-master
-            port:
-              number: 9200
   - host: kibana.doitsu.tech
     http:
       paths:
