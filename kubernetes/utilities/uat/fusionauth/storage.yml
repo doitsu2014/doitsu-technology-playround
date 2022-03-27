@@ -1,0 +1,26 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: fusionauth-pv
+  labels:
+    type: local 
+spec:
+  storageClassName: fusionauth
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/fusionauth-pv"
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: fusionauth-pvc
+spec:
+  storageClassName: fusionauth
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
