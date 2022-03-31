@@ -1,7 +1,9 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: ingress-opensearch-dashboard
+  name: ingress-kibana
+  annotations:
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
 spec:
   rules:
   - host: kibana.doitsu.tech
@@ -13,4 +15,4 @@ spec:
           service:
             name: elasticsearch-kibana-kibana
             port:
-              number: 5601 
+              number: 5601
