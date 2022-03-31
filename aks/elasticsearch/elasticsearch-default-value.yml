@@ -18,7 +18,7 @@ roles:
 # replicas: 3
 # minimumMasterNodes: 2
 
-replicas: 1
+replicas: 1 
 minimumMasterNodes: 1
 
 esMajorVersion: ""
@@ -123,9 +123,8 @@ initResources:
 networkHost: "0.0.0.0"
 
 volumeClaimTemplate:
-  
   accessModes: ["ReadWriteOnce"]
-  storageClassName: 
+  storageClassName: ""
   resources:
     requests:
       storage: 30Gi
@@ -161,6 +160,8 @@ persistence:
     # Add default labels for the volumeClaimTemplate of the StatefulSet
     enabled: false
   annotations: {}
+  # annotations: |
+    # volume.beta.kubernetes.io/storage-class: azure-disk
 
 extraVolumes:
   []
