@@ -1,0 +1,8 @@
+values:
+  - env: ""
+  
+helmfiles:
+- path: apps/01.cert-manager/helmfile.yaml
+- path: apps/02.opensearch/helmfile.yaml
+  values:
+   - env: {{ .Values.env }}

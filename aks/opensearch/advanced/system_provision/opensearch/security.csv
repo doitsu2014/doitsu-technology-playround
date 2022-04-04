@@ -1,0 +1,6 @@
+username,password,reserved,roles,description
+admin,Ezitsol@123456789,true,admin,"admin role"
+kibanaserver,test,true,admin,"kibana server"
+security,Ezitsol@123456789,true,security_search_admin,"security user"
+masterdata,Ezitsol@123456789,true,masterdata_search_admin,"masterdata user"
+payment,Ezitsol@123456789,true,payment_search_admin,"payment user"

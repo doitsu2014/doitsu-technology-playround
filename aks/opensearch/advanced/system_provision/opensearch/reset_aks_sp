@@ -1,0 +1,1 @@
+az aks update-credentials --resource-group amex-dev --name amex-dev-aks --reset-service-principal --service-principal {} --client-secret {}
