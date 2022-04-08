@@ -35,9 +35,9 @@ kubectl create secret generic certificates --from-file=$CERTIFICATES/
 kubectl create secret generic opensearch-certificates --from-file=$CERTIFICATES/
 kubectl create configmap jaeger-tls --from-file=$CERTIFICATES/
 
+helm install ${JAEGER_NAME} --values ${JAEGER_WP}/jaeger-default-value.yml jaegertracing/jaeger
 helm install ${OPENSEARCH_NAME} -f ${OPENSEARCH_WP}/opensearch-default-value.yml opensearch-project-helm-charts/opensearch --version 1.9.0
 helm install ${OPENSEARCH_DASHBOARD_NAME} -f ${OPENSEARCH_WP}/opensearch-dashboard-default-value.yml opensearch-project-helm-charts/opensearch-dashboards --version 1.3.1
-helm install ${JAEGER_NAME} --values ${JAEGER_WP}/jaeger-default-value.yml jaegertracing/jaeger
 helm install ${REDIS_NAME} -f ${REDIS_WP}/global-value.yml bitnami/redis --namespace ${NAMESPACE}
 
 bash install-ingress.sh
