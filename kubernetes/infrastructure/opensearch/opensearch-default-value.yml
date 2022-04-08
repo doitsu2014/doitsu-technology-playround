@@ -75,7 +75,7 @@ config:
           admin_dn:
             - 'CN=ADMIN,OU=SSL,O=PROD,L=PROD,C=DE'
         nodes_dn:
-          - 'CN=*.prod.com,OU=SSL,O=PROD,L=PROD,C=DE'
+          - 'CN=*.doitsu.tech,OU=SSL,O=PROD,L=PROD,C=DE'
           - 'CN=CLIENT,OU=SSL,O=PROD,L=PROD,C=DE'
         audit.type: internal_opensearch
         enable_snapshot_restore_privilege: true

@@ -94,7 +94,7 @@ agent:
     annotations: {}
     # List of IP ranges that are allowed to access the load balancer (if supported)
     loadBalancerSourceRanges: []
-    type: LoadBalancer
+    type: NodePort
     # zipkinThriftPort :accept zipkin.thrift over compact thrift protocol
     zipkinThriftPort: 5775
     # compactPort: accept jaeger.thrift over compact thrift protocol
@@ -103,6 +103,7 @@ agent:
     binaryPort: 6832
     # samplingPort: (HTTP) serve configs, sampling strategies
     samplingPort: 5778
+
   resources:
     {}
     # limits:
