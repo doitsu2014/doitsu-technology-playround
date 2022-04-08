@@ -110,7 +110,7 @@ serverHost: "0.0.0.0"
 
 service:
   # type: LoadBalancer
-  type: ClusterIP
+  type: LoadBalancer
   port: 5601
   loadBalancerIP: ""
   nodePort: ""

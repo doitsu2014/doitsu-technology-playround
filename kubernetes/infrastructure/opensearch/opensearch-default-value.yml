@@ -60,14 +60,14 @@ config:
       security:
         ssl:
           transport:
-            pemcert_filepath: /usr/share/opensearch/config/certificates/opensearch-node1.pem
-            pemkey_filepath: /usr/share/opensearch/config/certificates/opensearch-node1-key.pem
+            pemcert_filepath: /usr/share/opensearch/config/certificates/opensearch-node.pem
+            pemkey_filepath: /usr/share/opensearch/config/certificates/opensearch-node-key.pem
             pemtrustedcas_filepath: /usr/share/opensearch/config/certificates/root-ca.pem
             enforce_hostname_verification: false
           http:
             enabled: true
-            pemcert_filepath: /usr/share/opensearch/config/certificates/opensearch-node1.pem
-            pemkey_filepath: /usr/share/opensearch/config/certificates/opensearch-node1-key.pem
+            pemcert_filepath: /usr/share/opensearch/config/certificates/opensearch-node.pem
+            pemkey_filepath: /usr/share/opensearch/config/certificates/opensearch-node-key.pem
             pemtrustedcas_filepath: /usr/share/opensearch/config/certificates/root-ca.pem
         allow_unsafe_democertificates: false
         allow_default_init_securityindex: true

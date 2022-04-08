@@ -69,8 +69,8 @@ storage:
       es.tls.enabled: true
       es.tls.skip-host-verify: true
       es.tls.ca: /tls/root-ca.pem
-      es.tls.cert: /tls/opensearch-node1.pem
-      es.tls.key: /tls/opensearch-node1-key.pem
+      es.tls.cert: /tls/opensearch-node.pem
+      es.tls.key: /tls/opensearch-node-key.pem
 
 agent:
   podSecurityContext: {}
@@ -85,7 +85,8 @@ agent:
   extraEnv: []
   daemonset:
     useHostPort: false
-    updateStrategy: {}
+    updateStrategy:
+      {}
       # type: RollingUpdate
       # rollingUpdate:
       #   maxUnavailable: 1
@@ -102,7 +103,8 @@ agent:
     binaryPort: 6832
     # samplingPort: (HTTP) serve configs, sampling strategies
     samplingPort: 5778
-  resources: {}
+  resources:
+    {}
     # limits:
     #   cpu: 500m
     #   memory: 512Mi
