@@ -1,0 +1,40 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: opensearch-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+spec:
+  rules:
+    - host: etreem-dev-aks.eastasia.cloudapp.azure.com
+      http:
+        paths:
+          - path: /opensearch(/|$)(.*)
+            backend:
+              service:
+                name: opensearch-cluster-master
+                port:
+                  number: 9200
+            pathType: Prefix
+# ---
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: opensearch-dashboard-ingress
+#   annotations:
+#     cert-manager.io/cluster-issuer: letsencrypt
+#     nginx.ingress.kubernetes.io/rewrite-target: /$2
+#     nginx.ingress.kubernetes.io/use-regex: "true"
+#     kubernetes.io/ingress.class: nginx
+# spec:
+#   rules:
+#     - host: etreem-dev-aks.eastasia.cloudapp.azure.com
+#       http:
+#         paths:
+#           - path: /opensearch-dashboard(/|$)(.*)
+#             backend:
+#               service:
+#                 name: opensearch-dashboard-opensearch-dashboards
+#                 port:
+#                   number: 5601
+#             pathType: Prefix
