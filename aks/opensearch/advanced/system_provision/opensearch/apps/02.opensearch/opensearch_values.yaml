@@ -1,0 +1,19 @@
+---
+replicas: 1
+extraInitContainers:
+  - name: init-sysctl
+    image: busybox
+    command: ["sysctl", "-w", "vm.max_map_count=262144"]
+    securityContext:
+      privileged: true
+      runAsUser: 0
+
+service:
+  annotations:
+    service.beta.kubernetes.io/azure-load-balancer-internal: "true"
+  type: LoadBalancer
+ 
+securityConfig:
+  internalUsersSecret: internal-users-config
+  rolesSecret: roles-config
+  rolesMappingSecret: roles-mapping-config 

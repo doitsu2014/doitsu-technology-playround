@@ -1,0 +1,35 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: opensearch-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+spec:
+  rules:
+    - host: opensearch-node.doitsu.tech
+      http:
+        paths:
+          - path: /
+            backend:
+              service:
+                name: opensearch-cluster-master
+                port:
+                  number: 9200
+            pathType: Prefix
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: opensearch-dashboard-ingress
+spec:
+  rules:
+    - host: opensearch-dashboard.doitsu.tech
+      http:
+        paths:
+          - path: /
+            backend:
+              service:
+                name: opensearch-dashboard-opensearch-dashboards
+                port:
+                  number: 5601
+            pathType: Prefix

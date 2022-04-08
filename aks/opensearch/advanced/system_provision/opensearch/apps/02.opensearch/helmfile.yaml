@@ -1,0 +1,112 @@
+repositories:
+  - name: bitnami
+    url: https://charts.bitnami.com/bitnami
+  - name: ingress-nginx
+    url: https://kubernetes.github.io/ingress-nginx
+  - name: itscontained 
+    url: https://charts.itscontained.io
+  - name: opensearch
+    url: https://opensearch-project.github.io/helm-charts/
+    
+values:
+  - env: ""
+  
+releases:           
+  - name: {{ .Namespace }}-opensearch-secrets
+    chart: ./secrets-chart
+    values:
+      - ./secrets-chart/values.yaml
+      - name: namespace
+        value: {{ .Namespace }}
+ 
+  - name: {{ .Namespace }}-opensearch
+    chart: opensearch/opensearch
+    version: 1.7.4  
+    wait: true  
+    values:
+      - ./opensearch_values.yaml
+      - name: namespace
+        value: {{ .Namespace }}
+            
+  - name: {{ .Namespace }}-ingress-nginx
+    chart: ingress-nginx/ingress-nginx
+    version: 4.0.17
+    wait: true
+    values:
+      - name: namespace
+        value: {{ .Namespace }}
+      - controller:
+          ingressClass: {{ .Namespace }}-nginx
+          electionID: {{ .Namespace }}-ingress-controller-leader
+          ingressClassResource:
+            name: {{ .Namespace }}-nginx
+            controllerValue:  k8s.io/{{ .Namespace }}-nginx
+          replicaCount: 1
+          nodeSelector:
+            kubernetes.io/os: linux
+          admissionWebhooks:
+            patch:
+              nodeSelector:
+                kubernetes.io/os: linux
+          service:
+            externalTrafficPolicy: Local
+            annotations:
+              "service.beta.kubernetes.io/azure-dns-label-name": {{ .Namespace }}-{{ .Values.env }}
+        defaultBackend:
+          nodeSelector:
+            kubernetes.io/os: linux
+            
+  - name: {{ .Namespace }}-cert-manager-issuers
+    chart: itscontained/raw
+    version:  0.2.5
+    disableValidation: true
+    wait: true    
+    values:
+      - name: namespace
+        value: {{ .Namespace }}
+      - resources:
+          - apiVersion: cert-manager.io/v1
+            kind: Issuer
+            metadata:
+              name: {{ .Namespace }}-letsencrypt
+            spec:
+              acme:
+                server: https://acme-v02.api.letsencrypt.org/directory
+                email: builds@acomsolutions.com
+                privateKeySecretRef:
+                  name: {{ .Namespace }}-letsencrypt
+                solvers:
+                - http01:
+                    ingress:
+                      class: {{ .Namespace }}-nginx
+                      podTemplate:
+                        spec:
+                          nodeSelector:
+                            "kubernetes.io/os": linux
+                                        
+  - name: {{ .Namespace }}-opensearch-dashboard
+    chart: opensearch/opensearch-dashboards
+    version: 1.2.1
+    wait: true 
+    needs: 
+    - {{ .Namespace }}/{{ .Namespace }}-ingress-nginx
+    values:
+      - name: namespace
+        value: {{ .Namespace }}
+      - opensearchAccount:
+         secret: kibana-internal-users-config
+      - ingress:
+          enabled: true
+          annotations:
+            "kubernetes.io/ingress.class": {{ .Namespace }}-nginx
+            "cert-manager.io/issuer": {{ .Namespace }}-letsencrypt
+            "nginx.ingress.kubernetes.io/use-regex": "true"
+          hosts:
+            - host: {{ .Namespace }}-{{ .Values.env }}.{{ env "AZURE_REGION" | default "southeastasia.cloudapp.azure.com" }} 
+              paths:
+                - path: /
+                  pathType: Prefix
+          tls:
+            - secretName: {{ .Namespace }}-tls-secret
+              hosts:
+                - {{ .Namespace }}-{{ .Values.env }}.{{ env "AZURE_REGION" | default "southeastasia.cloudapp.azure.com" }} 

@@ -1,0 +1,147 @@
+# Default values for jaeger.
+# This is a YAML-formatted file.
+# Jaeger values are grouped by component. Cassandra values override subchart values
+
+provisionDataStore:
+  cassandra: false
+  elasticsearch: false
+  kafka: false
+
+query:
+  # cmdlineParams:
+  #   es.tls.ca: "/tls/root-ca.pem"
+  #   es.tls.cert: "/tls/client.pem"
+  #   es.tls.key: "/tls/client-key.pem"
+  extraConfigmapMounts:
+    - name: jaeger-tls
+      mountPath: /tls
+      subPath: ""
+      configMap: jaeger-tls
+      readOnly: true
+
+collector:
+  # cmdlineParams:
+  #   es.tls.ca: "/tls/root-ca.pem"
+  #   es.tls.cert: "/tls/client.pem"
+  #   es.tls.key: "/tls/client-key.pem"
+  extraConfigmapMounts:
+    - name: jaeger-tls
+      mountPath: /tls
+      subPath: ""
+      configMap: jaeger-tls
+      readOnly: true
+
+# spark:
+#   enabled: false
+#   cmdlineParams:
+#     java.opts: "-Djavax.net.ssl.trustStore=/tls/trust.store -Djavax.net.ssl.trustStorePassword=changeit"
+#   extraConfigmapMounts:
+#     - name: jaeger-tls
+#       mountPath: /tls
+#       subPath: ""
+#       configMap: jaeger-tls
+#       readOnly: true
+
+storage:
+  type: elasticsearch
+  elasticsearch:
+    scheme: https
+    host: opensearch-cluster-master
+    port: 9200
+    user: admin
+    usePassword: true
+    password: zaQ@1234
+    # indexPrefix: test
+    ## Use existing secret (ignores previous password)
+    # existingSecret:
+    # existingSecretKey:
+    nodesWanOnly: false
+    extraEnv: []
+    ## ES related env vars to be configured on the concerned components
+    # - name: ES_SERVER_URLS
+    #   value: http://elasticsearch-master:9200
+    # - name: ES_USERNAME
+    #   value: elastic
+    # - name: ES_INDEX_PREFIX
+    #   value: test
+    ## ES related cmd line opts to be configured on the concerned components
+    cmdlineParams:
+      es.tls.enabled: true
+      es.tls.skip-host-verify: true
+      es.tls.ca: /tls/root-ca.pem
+      es.tls.cert: /tls/opensearch-node.pem
+      es.tls.key: /tls/opensearch-node-key.pem
+
+agent:
+  podSecurityContext: {}
+  securityContext: {}
+  enabled: true
+  annotations: {}
+  image: jaegertracing/jaeger-agent
+  # tag: 1.22
+  imagePullSecrets: []
+  pullPolicy: IfNotPresent
+  cmdlineParams: {}
+  extraEnv: []
+  daemonset:
+    useHostPort: false
+    updateStrategy:
+      {}
+      # type: RollingUpdate
+      # rollingUpdate:
+      #   maxUnavailable: 1
+  service:
+    annotations: {}
+    # List of IP ranges that are allowed to access the load balancer (if supported)
+    loadBalancerSourceRanges: []
+    type: NodePort
+    # zipkinThriftPort :accept zipkin.thrift over compact thrift protocol
+    zipkinThriftPort: 5775
+    # compactPort: accept jaeger.thrift over compact thrift protocol
+    compactPort: 6831
+    # binaryPort: accept jaeger.thrift over binary thrift protocol
+    binaryPort: 6832
+    # samplingPort: (HTTP) serve configs, sampling strategies
+    samplingPort: 5778
+
+  resources:
+    {}
+    # limits:
+    #   cpu: 500m
+    #   memory: 512Mi
+    # requests:
+    #   cpu: 256m
+    #   memory: 128Mi
+  serviceAccount:
+    create: true
+    # Explicitly mounts the API credentials for the Service Account
+    automountServiceAccountToken: false
+    name:
+    annotations: {}
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+  podAnnotations: {}
+  ## Additional pod labels
+  ## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
+  podLabels: {}
+  extraSecretMounts: []
+  # - name: jaeger-tls
+  #   mountPath: /tls
+  #   subPath: ""
+  #   secretName: jaeger-tls
+  #   readOnly: true
+  extraConfigmapMounts: []
+  # - name: jaeger-config
+  #   mountPath: /config
+  #   subPath: ""
+  #   configMap: jaeger-config
+  #   readOnly: true
+  useHostNetwork: false
+  dnsPolicy: ClusterFirst
+  priorityClassName: ""
+  initContainers: []
+
+  serviceMonitor:
+    enabled: false
+    additionalLabels: {}

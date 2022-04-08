@@ -1,0 +1,51 @@
+_meta:
+  type: internalusers
+  config_version: 2
+admin:
+  hash: $2y$12$7AHlF6urdgc7IxkIR2pREeqSWRuRS925Z4q0lTqV6JByQ2rP2yOfi
+  reserved: true
+  backend_roles:
+  - admin
+  description: admin role
+kibanaserver:
+  hash: $2y$12$8RazA3VXIeU.H.Y84f4sOeN2cPOU.i9qEzz3q8pW.WP0znMGk0OPe
+  reserved: true
+  backend_roles:
+  - admin
+  description: kibana server
+masterdata:
+  hash: $2y$12$hgAfjCSRFLvqLN/vtqEm4O.hrSqi9Wv3afbXyGmUJX4KM1jugD.L6
+  reserved: true
+  backend_roles:
+  - masterdata_search_admin
+  description: masterdata user
+logstash:
+  hash: $2a$12$u1ShR4l4uBS3Uv59Pa2y5.1uQuZBrZtmNfqB3iM/.jL0XoV9sghS2
+  reserved: false
+  backend_roles:
+  - logstash
+  description: Logstash user
+readall:
+  hash: $2a$12$ae4ycwzwvLtZxwZ82RmiEunBbIPiAmGZduBAjKN0TXdwQFtCwARz2
+  reserved: false
+  backend_roles:
+  - readall
+  description: Readall user
+snapshotrestore:
+  hash: $2y$12$DpwmetHKwgYnorbgdvORCenv4NAK8cPUg8AI6pxLCuWf/ALc0.v7W
+  reserved: false
+  backend_roles:
+  - snapshotrestore
+  description: Snapshotrestore user
+security:
+  hash: $2y$12$kms01nM0jTamgcACnDpkm.7vOuvn.SM6FgDB/b5vRWO3/vaV3wzNy
+  reserved: true
+  backend_roles:
+  - security_search_admin
+  description: security user
+payment:
+  hash: $2y$12$rvXLHavH9sAfQLfq/KNWje8Wbs5.YfKQWFXMWiGx5o.39gT0LRTRq
+  reserved: true
+  backend_roles:
+  - payment_search_admin
+  description: payment user
