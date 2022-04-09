@@ -8,6 +8,8 @@ provisionDataStore:
   kafka: false
 
 query:
+  service:
+    type: NodePort
   # cmdlineParams:
   #   es.tls.ca: "/tls/root-ca.pem"
   #   es.tls.cert: "/tls/client.pem"
