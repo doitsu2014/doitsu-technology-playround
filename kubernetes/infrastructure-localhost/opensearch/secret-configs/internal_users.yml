@@ -1,0 +1,52 @@
+---
+# This is the internal user database
+# The hash value is a bcrypt hash and can be generated with plugin/tools/hash.sh
+
+_meta:
+  type: "internalusers"
+  config_version: 2
+
+admin:
+  hash: "$2y$12$Sa1tLx0v49VwIogkJ2LI/eznH2wbkU7TZls79JqXj95/.MWJEhboy"
+  reserved: false
+  backend_roles:
+  - "admin"
+  description: "Administrator"
+
+kibanaserver:
+  hash: "$2y$12$Sa1tLx0v49VwIogkJ2LI/eznH2wbkU7TZls79JqXj95/.MWJEhboy"
+  reserved: true
+  description: "Opensearch Dashboard"
+
+kibanaro:
+  hash: "$2y$12$Sa1tLx0v49VwIogkJ2LI/eznH2wbkU7TZls79JqXj95/.MWJEhboy"
+  reserved: false
+  backend_roles:
+  - "kibanauser"
+  - "readall"
+  attributes:
+    attribute1: "value1"
+    attribute2: "value2"
+    attribute3: "value3"
+  description: "Read-only user for OpenSearch dashboards"
+
+logstash:
+  hash: "$2y$12$Sa1tLx0v49VwIogkJ2LI/eznH2wbkU7TZls79JqXj95/.MWJEhboy"
+  reserved: false
+  backend_roles:
+  - "logstash"
+  description: "Logstash user"
+
+readall:
+  hash: "$2y$12$Sa1tLx0v49VwIogkJ2LI/eznH2wbkU7TZls79JqXj95/.MWJEhboy"
+  reserved: false
+  backend_roles:
+  - "readall"
+  description: "Readall user"
+
+snapshotrestore:
+  hash: "$2y$12$Sa1tLx0v49VwIogkJ2LI/eznH2wbkU7TZls79JqXj95/.MWJEhboy"
+  reserved: false
+  backend_roles:
+  - "snapshotrestore"
+  description: "Snapshotrestore user"
