@@ -14,6 +14,7 @@ helm repo add opensearch-project-helm-charts https://opensearch-project.github.i
 helm repo add jaegertracing https://jaegertracing.github.io/helm-charts
 helm repo add bitnami https://charts.bitnami.com/bitnami
 helm repo add portainer https://portainer.github.io/k8s
+helm repo add mssql-server-2019 https://simcubeltd.github.io/mssql-server-helm/charts/
 
 kubectl create namespace $NAMESPACE
 kubectl config set-context --current --namespace=$NAMESPACE
@@ -41,4 +42,5 @@ helm install ${OPENSEARCH_NAME} -f ${OPENSEARCH_WP}/opensearch-default-value.yml
 helm install ${OPENSEARCH_DASHBOARD_NAME} -f ${OPENSEARCH_WP}/opensearch-dashboard-default-value.yml opensearch-project-helm-charts/opensearch-dashboards --version 1.3.1
 helm install ${REDIS_NAME} -f ${REDIS_WP}/global-value.yml bitnami/redis --namespace ${NAMESPACE}
 helm install mssql-localhost -f mssql/mssql-default-value.yml --namespace ${NAMESPACE} 
+helm install my-mssql-linux mssql-server-2019/mssql-linux -f mssql/mssql-default-value.yml --namespace=${NAMESPACE}
 helm install portainer portainer/portainer --set service.type=LoadBalancer --namespace ${NAMESPACE} 
