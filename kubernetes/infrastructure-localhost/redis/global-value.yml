@@ -794,7 +794,7 @@ replica:
     ## @param replica.service.externalTrafficPolicy Redis&trade; replicas service external traffic policy
     ## ref: https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip
     ##
-    externalTrafficPolicy: Cluster
+    externalTrafficPolicy: Local
     ## @param replica.service.extraPorts Extra ports to expose (normally used with the `sidecar` value)
     ##
     extraPorts: []
@@ -1052,7 +1052,7 @@ sentinel:
   service:
     ## @param sentinel.service.type Redis&trade; Sentinel service type
     ##
-    type: ClusterIP
+    type: LoadBalancer
     ## @param sentinel.service.ports.redis Redis&trade; service port for Redis&trade;
     ## @param sentinel.service.ports.sentinel Redis&trade; service port for Redis&trade; Sentinel
     ##

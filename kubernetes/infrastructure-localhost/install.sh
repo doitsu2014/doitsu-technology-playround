@@ -3,6 +3,7 @@ OPENSEARCH_NAME=opensearch
 OPENSEARCH_DASHBOARD_NAME=opensearch-dashboard
 JAEGER_NAME=jaeger
 REDIS_NAME=redis-server
+MSSQL_NAME=my-mssql-linux
 
 OPENSEARCH_WP=opensearch
 JAEGER_WP=jaeger
@@ -37,10 +38,20 @@ kubectl create secret generic certificates --from-file=$CERTIFICATES/
 kubectl create secret generic opensearch-certificates --from-file=$CERTIFICATES/
 kubectl create configmap jaeger-tls --from-file=$CERTIFICATES/
 
+helm uninstall ${JAEGER_NAME} 
 helm install ${JAEGER_NAME} --values ${JAEGER_WP}/jaeger-default-value.yml jaegertracing/jaeger
+
+helm uninstall ${OPENSEARCH_NAME} 
 helm install ${OPENSEARCH_NAME} -f ${OPENSEARCH_WP}/opensearch-default-value.yml opensearch-project-helm-charts/opensearch --version 1.9.0
+
+helm uninstall ${OPENSEARCH_DASHBOARD_NAME} 
 helm install ${OPENSEARCH_DASHBOARD_NAME} -f ${OPENSEARCH_WP}/opensearch-dashboard-default-value.yml opensearch-project-helm-charts/opensearch-dashboards --version 1.3.1
-helm install ${REDIS_NAME} -f ${REDIS_WP}/global-value.yml bitnami/redis --namespace ${NAMESPACE}
-helm install mssql-localhost -f mssql/mssql-default-value.yml --namespace ${NAMESPACE} 
-helm install my-mssql-linux mssql-server-2019/mssql-linux -f mssql/mssql-default-value.yml --namespace=${NAMESPACE}
-helm install portainer portainer/portainer --set service.type=LoadBalancer --namespace ${NAMESPACE} 
+
+helm uninstall ${REDIS_NAME} 
+helm install ${REDIS_NAME} -f ${REDIS_WP}/global-value.yml bitnami/redis
+
+helm uninstall ${MSSQL_NAME}
+helm install ${MSSQL_NAME} mssql-server-2019/mssql-linux -f mssql/mssql-default-value.yml
+
+# NO UNINSTALL
+helm install portainer portainer/portainer --set service.type=LoadBalancer
