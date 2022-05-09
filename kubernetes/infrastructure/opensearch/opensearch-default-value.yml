@@ -14,7 +14,7 @@ roles:
   - data
   - remote_cluster_client
 
-replicas: 2 
+replicas: 1 
 minimumMasterNodes: 1
 
 # if not set, falls back to parsing .Values.imageTag, then .Chart.appVersion.
@@ -143,8 +143,8 @@ labels: {}
 opensearchJavaOpts: "-Xmx512M -Xms512M"
 
 resources:
-  requests:
-    cpu: "1500m"
+  limits:
+    cpu: "2000m"
     memory: "2000Mi"
 
 initResources:
@@ -293,7 +293,7 @@ service:
   headless:
     annotations: {}
   # type: NodePort
-  type: ClusterIP
+  type: NodePort
   nodePort: ""
   annotations: {}
   httpPortName: http

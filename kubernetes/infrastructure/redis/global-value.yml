@@ -433,7 +433,7 @@ master:
   service:
     ## @param master.service.type Redis&trade; master service type
     ##
-    type: LoadBalancer
+    type: NodePort
     # type: NodePort
     ## @param master.service.ports.redis Redis&trade; master service port
     ##
