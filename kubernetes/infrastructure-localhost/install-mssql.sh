@@ -1,8 +1,5 @@
 NAMESPACE=infrastructure
-OPENSEARCH_NAME=opensearch
-OPENSEARCH_DASHBOARD_NAME=opensearch-dashboard
-JAEGER_NAME=jaeger
-REDIS_NAME=redis-server
+MSSQL_NAME=my-mssql-linux
 
 # helm repo add bitnami https://charts.bitnami.com/bitnami
 
@@ -11,5 +8,5 @@ kubectl config set-context --current --namespace=$NAMESPACE
 
 helm repo add mssql-server-2019 https://simcubeltd.github.io/mssql-server-helm/charts/
 
-helm uninstall my-mssql-linux -n ${NAMESPACE} 
-helm install my-mssql-linux mssql-server-2019/mssql-linux -f mssql/mssql-default-value.yml --namespace=${NAMESPACE} 
+helm uninstall ${MSSQL_NAME}
+helm install ${MSSQL_NAME} mssql-server-2019/mssql-linux -f mssql/mssql-default-value.yml
