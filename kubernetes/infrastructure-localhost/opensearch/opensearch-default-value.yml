@@ -144,7 +144,7 @@ opensearchJavaOpts: "-Xmx512M -Xms512M"
 
 resources:
   limits:
-    cpu: "2000m"
+    cpu: "1000m"
     memory: "2000Mi"
 
 initResources:
