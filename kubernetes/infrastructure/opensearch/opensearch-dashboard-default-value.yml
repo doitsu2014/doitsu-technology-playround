@@ -110,7 +110,7 @@ serverHost: "0.0.0.0"
 
 service:
   # type: LoadBalancer
-  type: LoadBalancer
+  type: NodePort
   port: 5601
   loadBalancerIP: ""
   nodePort: ""
@@ -144,7 +144,7 @@ ingress:
 
 resources:
   requests:
-    cpu: "100m"
+    cpu: "500m"
     memory: "512M"
   limits:
     cpu: "100m"
