@@ -13,6 +13,7 @@ CERTIFICATES=certificates
 helm repo add opensearch-project-helm-charts https://opensearch-project.github.io/helm-charts
 helm repo add jaegertracing https://jaegertracing.github.io/helm-charts
 helm repo add bitnami https://charts.bitnami.com/bitnami
+helm repo add portainer https://portainer.github.io/k8s
 
 kubectl create namespace $NAMESPACE
 kubectl config set-context --current --namespace=$NAMESPACE
@@ -39,3 +40,5 @@ helm install ${JAEGER_NAME} --values ${JAEGER_WP}/jaeger-default-value.yml jaege
 helm install ${OPENSEARCH_NAME} -f ${OPENSEARCH_WP}/opensearch-default-value.yml opensearch-project-helm-charts/opensearch --version 1.9.0
 helm install ${OPENSEARCH_DASHBOARD_NAME} -f ${OPENSEARCH_WP}/opensearch-dashboard-default-value.yml opensearch-project-helm-charts/opensearch-dashboards --version 1.3.1
 helm install ${REDIS_NAME} -f ${REDIS_WP}/global-value.yml bitnami/redis --namespace ${NAMESPACE}
+helm install mssql-localhost -f mssql/mssql-default-value.yml --namespace ${NAMESPACE} 
+helm install portainer portainer/portainer --set service.type=LoadBalancer --namespace ${NAMESPACE} 
