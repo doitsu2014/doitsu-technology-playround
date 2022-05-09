@@ -15,7 +15,7 @@ image:
 service:
   # If headless is set to TRUE then the service type is ignored
   headless: false
-  type: LoadBalancer
+  type: NodePort
   port: 1433
   annotations: {}
   labels: {}
@@ -47,9 +47,10 @@ readinessprobe:
   initialDelaySeconds: 5
   periodSeconds: 10
 resources:
-  limits:
+  {}
+  # requests:
   #  cpu: 100m
-    memory: 2Gi
+    # memory: 2100M
   # requests:
   #  cpu: 100m
   #  memory: 2Gi
