@@ -1,17 +1,16 @@
 acceptEula:
-  value: "n"
+  value: "Y"
 edition:
-  value: Express
+  value: Developer
 collation: SQL_Latin1_General_CP1_CI_AS
 lcid: 1033
 hadr: 0
 # Override sapassword in templates/secret.yaml
-# sapassword: "MyStrongPassword1234"
+sapassword: "zaQ@1234"
 image:
   repository: mcr.microsoft.com/mssql/server
   tag: 2019-latest
   pullPolicy: IfNotPresent
-  
 
 service:
   # If headless is set to TRUE then the service type is ignored

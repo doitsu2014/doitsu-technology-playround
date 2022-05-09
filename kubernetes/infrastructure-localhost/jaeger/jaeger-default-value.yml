@@ -96,7 +96,7 @@ agent:
     annotations: {}
     # List of IP ranges that are allowed to access the load balancer (if supported)
     loadBalancerSourceRanges: []
-    type: LoadBalancer
+    type: NodePort
     # zipkinThriftPort :accept zipkin.thrift over compact thrift protocol
     zipkinThriftPort: 5775
     # compactPort: accept jaeger.thrift over compact thrift protocol
@@ -107,13 +107,9 @@ agent:
     samplingPort: 5778
 
   resources:
-    {}
-    # limits:
-    #   cpu: 500m
-    #   memory: 512Mi
-    # requests:
-    #   cpu: 256m
-    #   memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 1024Mi
   serviceAccount:
     create: true
     # Explicitly mounts the API credentials for the Service Account

@@ -142,12 +142,9 @@ ingress:
         - chart-example.local
 
 resources:
-  requests:
-    cpu: "500m"
-    memory: "512M"
   limits:
-    cpu: "100m"
-    memory: "512M"
+    cpu: "1000m"
+    memory: "1000M"
 
 autoscaling:
   enabled: false

@@ -245,8 +245,8 @@ master:
   ## @param master.resources.requests The requested resources for the Redis&trade; master containers
   ##
   resources:
-    limits: {}
-    requests: {}
+    limits:
+      cpu: 1000m
   ## Configure Pods Security Context
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
   ## @param master.podSecurityContext.enabled Enabled Redis&trade; master pods' Security Context
