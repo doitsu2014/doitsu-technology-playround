@@ -929,8 +929,8 @@ sentinel:
   ## @param sentinel.externalMaster.port Port for Redis service external master host
   ##
   externalMaster:
-    enabled: true
-    host: "0.0.0.0"
+    enabled: false
+    host: ""
     port: 6379
   ## @param sentinel.containerPorts.sentinel Container port to open on Redis&trade; Sentinel nodes
   ##
