@@ -21,10 +21,12 @@ helm repo add mssql-server-2019 https://simcubeltd.github.io/mssql-server-helm/c
 kubectl create namespace $NAMESPACE
 kubectl config set-context --current --namespace=$NAMESPACE
 
-kubectl delete secrets opensearch-internal-users-config
-kubectl delete secrets opensearch-internal-roles-mapping-config
-kubectl delete secrets opensearch-internal-roles-config
-kubectl delete secrets opensearch-dashboard-credential
+
+
+kubectl delete secrets opensearch-internal-users-config --ignore-not-found=false
+kubectl delete secrets opensearch-internal-roles-mapping-config --ignore-not-found=false
+kubectl delete secrets opensearch-internal-roles-config --ignore-not-found=false
+kubectl delete secrets opensearch-dashboard-credential --ignore-not-found=false
 kubectl create secret generic opensearch-internal-users-config --from-file=$OPENSEARCH_WP/secret-configs/internal_users.yml
 kubectl create secret generic opensearch-internal-roles-mapping-config --from-file=$OPENSEARCH_WP/secret-configs/roles_mapping.yml
 kubectl create secret generic opensearch-internal-roles-config --from-file=$OPENSEARCH_WP/secret-configs/roles.yml
@@ -32,9 +34,9 @@ kubectl create secret generic opensearch-dashboard-credential --from-literal use
 
 rm -R $CERTIFICATES/*
 bash generate-certificates.sh
-kubectl delete secrets certificates
-kubectl delete secrets opensearch-certificates
-kubectl delete configmaps jaeger-tls
+kubectl delete secrets certificates --ignore-not-found=false
+kubectl delete secrets opensearch-certificates --ignore-not-found=false
+kubectl delete configmaps jaeger-tls --ignore-not-found=false
 kubectl create secret generic certificates --from-file=$CERTIFICATES/
 kubectl create secret generic opensearch-certificates --from-file=$CERTIFICATES/
 kubectl create configmap jaeger-tls --from-file=$CERTIFICATES/
