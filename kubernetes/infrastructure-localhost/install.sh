@@ -16,7 +16,7 @@ helm repo add opensearch-project-helm-charts https://opensearch-project.github.i
 helm repo add jaegertracing https://jaegertracing.github.io/helm-charts
 helm repo add bitnami https://charts.bitnami.com/bitnami
 helm repo add portainer https://portainer.github.io/k8s
-helm repo add mssql-server-2019 https://simcubeltd.github.io/mssql-server-helm/charts/
+helm repo add mssql-server-2019 https://simcubeltd.github.io/simcube-helm-charts/
 
 kubectl create namespace $NAMESPACE
 kubectl config set-context --current --namespace=$NAMESPACE
