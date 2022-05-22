@@ -9,7 +9,7 @@ provisionDataStore:
 
 query:
   service:
-    type: LoadBalancer
+    type: NodePort
   # cmdlineParams:
   #   es.tls.ca: "/tls/root-ca.pem"
   #   es.tls.cert: "/tls/client.pem"

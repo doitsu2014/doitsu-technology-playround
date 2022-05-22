@@ -19,18 +19,21 @@ service:
   # Set the httpNodePort and edgeNodePort only if the type is NodePort
   # For Ingress, set the type to be ClusterIP and set ingress.enabled to true
   # For Cloud Providers, set the type to be LoadBalancer
-  type: LoadBalancer
+  type: NodePort
   httpPort: 9000
   httpNodePort:
   edgePort: 8000
   edgeNodePort:
 
 ingress:
-  enabled: false
-  annotations: {}
+  enabled: true
+  annotations:
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    kubernetes.io/ingress.class: nginx
   hosts:
     - host:
-      paths: []
+      paths:
+        - portainer.doitsu.tech
   tls: []
 
 resources: {}
