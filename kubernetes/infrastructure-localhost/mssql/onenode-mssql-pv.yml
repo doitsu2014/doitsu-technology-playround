@@ -3,9 +3,9 @@ kind: PersistentVolume
 metadata:
   name: onenode-mssql-pv
 spec:
-  storageClassName: manual
+  storageClassName: local
   capacity:
-    storage: 30Gi
+    storage: 20Gi
   volumeMode: Filesystem
   accessModes:
     - ReadWriteOnce
@@ -17,7 +17,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: onenode-mssql-pvc
 spec:
-  storageClassName: manual
+  # storageClassName: manual
   accessModes:
     - ReadWriteOnce
   resources:
