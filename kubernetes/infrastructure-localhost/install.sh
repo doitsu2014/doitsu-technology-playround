@@ -12,16 +12,10 @@ REDIS_WP=redis
 
 CERTIFICATES=certificates
 
-helm repo add opensearch-project-helm-charts https://opensearch-project.github.io/helm-charts
-helm repo add jaegertracing https://jaegertracing.github.io/helm-charts
-helm repo add bitnami https://charts.bitnami.com/bitnami
-helm repo add portainer https://portainer.github.io/k8s
-# helm repo add mssql-server-2019 https://simcubeltd.github.io/simcube-helm-charts/
+bash ./helm-repository.init.sh
 
 kubectl create namespace $NAMESPACE
 kubectl config set-context --current --namespace=$NAMESPACE
-
-
 
 kubectl delete secrets opensearch-internal-users-config --ignore-not-found=false
 kubectl delete secrets opensearch-internal-roles-mapping-config --ignore-not-found=false
@@ -33,7 +27,7 @@ kubectl create secret generic opensearch-internal-roles-config --from-file=$OPEN
 kubectl create secret generic opensearch-dashboard-credential --from-literal username=kibanaserver --from-literal password=zaQ@1234 --from-literal cookie=999977772222
 
 rm -R $CERTIFICATES/*
-bash generate-certificates.sh
+bash ./generate-certificates.sh
 kubectl delete secrets certificates --ignore-not-found=false
 kubectl delete secrets opensearch-certificates --ignore-not-found=false
 kubectl delete configmaps jaeger-tls --ignore-not-found=false
@@ -45,5 +39,5 @@ helm upgrade ${JAEGER_NAME} --values ${JAEGER_WP}/jaeger-default-value.yml jaege
 helm upgrade ${OPENSEARCH_NAME} -f ${OPENSEARCH_WP}/opensearch-default-value.yml opensearch-project-helm-charts/opensearch --version 1.9.0 --install
 helm upgrade ${OPENSEARCH_DASHBOARD_NAME} -f ${OPENSEARCH_WP}/opensearch-dashboard-default-value.yml opensearch-project-helm-charts/opensearch-dashboards --version 1.3.1 --install
 helm upgrade ${REDIS_NAME} -f ${REDIS_WP}/global-value.yml bitnami/redis --install
-# helm upgrade ${MSSQL_NAME} mssql-server-2019/mssql-linux -f mssql/mssql-default-value.yml --install
+helm upgrade ${MSSQL_NAME} mssql-server-2019/mssql-linux -f mssql/mssql-default-value.yml --install --version 1.0.8
 helm upgrade ${PORTAINER_NAME} portainer/portainer -f portainer/default-value.yml --install

@@ -33,13 +33,13 @@ persistence:
   # existingMasterClaim:
   storageClass: ""
   dataAccessMode: ReadWriteOnce
-  dataSize: 1Gi
+  dataSize: 10Gi
   transactionLogAccessMode: ReadWriteOnce
-  transactionLogSize: 1Gi
+  transactionLogSize: 10Gi
   backupAccessMode: ReadWriteOnce
-  backupSize: 1Gi
+  backupSize: 5Gi
   masterAccessMode: ReadWriteOnce
-  masterSize: 1Gi
+  masterSize: 5Gi
 livenessprobe:
   initialDelaySeconds: 15
   periodSeconds: 20

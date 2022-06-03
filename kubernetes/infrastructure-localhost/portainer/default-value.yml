@@ -4,12 +4,22 @@
 
 replicaCount: 1
 
+# If enterpriseEdition is enabled, then use the values below _instead_ of those in .image
+enterpriseEdition: 
+  enabled: false
+  image:
+    repository: portainer/portainer-ee
+    tag: 2.13.1
+    pullPolicy: Always
+
 image:
   repository: portainer/portainer-ce
   tag: latest
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
 
 imagePullSecrets: []
+
+nodeSelector: {}
 
 serviceAccount:
   annotations: {}
@@ -21,23 +31,41 @@ service:
   # For Cloud Providers, set the type to be LoadBalancer
   type: NodePort
   httpPort: 9000
-  httpNodePort:
+  httpsPort: 9443
+  httpNodePort: 30777
+  httpsNodePort: 30779
   edgePort: 8000
-  edgeNodePort:
+  edgeNodePort: 30776
+  annotations: {}
+
+tls:
+  # If set, Portainer will be configured to use TLS only
+  force: false
+  # If set, will mount the existing secret into the pod
+  existingSecret: ""
+
+feature:
+  flags: ""
 
 ingress:
-  enabled: true
-  annotations:
-    nginx.ingress.kubernetes.io/use-regex: "true"
-    kubernetes.io/ingress.class: nginx
+  enabled: false
+  ingressClassName: ""
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # Only use below if tls.force=true
+    # nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+  # Note: Hosts and paths are of type array
   hosts:
     - host:
-      paths:
-        - portainer.doitsu.tech
+      paths: []
+      # - path: "/"
   tls: []
 
 resources: {}
 
 persistence:
-  size: "1Gi"
+  enabled: true
+  size: "10Gi"
   annotations: {}
+  storageClass:
+  existingClaim:
