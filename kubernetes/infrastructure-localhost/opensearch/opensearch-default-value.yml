@@ -53,7 +53,9 @@ config:
 
     # Setting network.host to a non-loopback address enables the annoying bootstrap checks. "Single-node" mode disables them again.
     # discovery.type: single-node
-    action.auto_create_index: false
+
+    # action.auto_create_index: true
+
     # Start OpenSearch Security Demo Configuration
     # WARNING: revise all the lines below before you go into production
     plugins:

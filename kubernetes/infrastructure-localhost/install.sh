@@ -35,6 +35,9 @@ kubectl create secret generic certificates --from-file=$CERTIFICATES/
 kubectl create secret generic opensearch-certificates --from-file=$CERTIFICATES/
 kubectl create configmap jaeger-tls --from-file=$CERTIFICATES/
 
+echo 'Sleep 5 seconds'
+sleep 5 
+
 helm upgrade ${JAEGER_NAME} --values ${JAEGER_WP}/jaeger-default-value.yml jaegertracing/jaeger --install
 helm upgrade ${OPENSEARCH_NAME} -f ${OPENSEARCH_WP}/opensearch-default-value.yml opensearch-project-helm-charts/opensearch --version 1.9.0 --install
 helm upgrade ${OPENSEARCH_DASHBOARD_NAME} -f ${OPENSEARCH_WP}/opensearch-dashboard-default-value.yml opensearch-project-helm-charts/opensearch-dashboards --version 1.3.1 --install
