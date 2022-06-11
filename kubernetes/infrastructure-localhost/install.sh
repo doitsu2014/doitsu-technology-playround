@@ -4,7 +4,6 @@ OPENSEARCH_DASHBOARD_NAME=opensearch-dashboard
 JAEGER_NAME=jaeger
 REDIS_NAME=redis-server
 MSSQL_NAME=my-mssql-linux
-PORTAINER_NAME=portainer
 
 OPENSEARCH_WP=opensearch
 JAEGER_WP=jaeger
@@ -43,4 +42,3 @@ helm upgrade ${OPENSEARCH_NAME} -f ${OPENSEARCH_WP}/opensearch-default-value.yml
 helm upgrade ${OPENSEARCH_DASHBOARD_NAME} -f ${OPENSEARCH_WP}/opensearch-dashboard-default-value.yml opensearch-project-helm-charts/opensearch-dashboards --version 1.3.1 --install
 helm upgrade ${REDIS_NAME} -f ${REDIS_WP}/global-value.yml bitnami/redis --install
 helm upgrade ${MSSQL_NAME} mssql-server-2019/mssql-linux -f mssql/mssql-default-value.yml --install --version 1.0.8
-helm upgrade ${PORTAINER_NAME} portainer/portainer -f portainer/default-value.yml --install

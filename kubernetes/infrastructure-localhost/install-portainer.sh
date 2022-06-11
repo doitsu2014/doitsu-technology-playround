@@ -1,4 +1,4 @@
-NAMESPACE=infrastructure
+NAMESPACE=monitoring
 PORTAINER_NAME=portainer-service
 PORTAINER_WP=portainer
 
