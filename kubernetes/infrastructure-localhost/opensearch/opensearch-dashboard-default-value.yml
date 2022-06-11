@@ -137,8 +137,8 @@ ingress:
 
 resources:
   limits:
-    cpu: "1000m"
-    memory: "1000M"
+    cpu: "200m"
+    memory: "400M"
 
 autoscaling:
   enabled: false

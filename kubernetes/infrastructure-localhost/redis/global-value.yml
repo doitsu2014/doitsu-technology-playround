@@ -43,7 +43,7 @@ master:
     redis: 6379
   resources:
     limits:
-      cpu: 500m
+      cpu: 250m
   podSecurityContext:
     enabled: true
     fsGroup: 1001
@@ -85,7 +85,7 @@ replica:
     redis: 6379
   resources:
     limits:
-      cpu: 500m
+      cpu: 250m
   podSecurityContext:
     enabled: true
     fsGroup: 1001

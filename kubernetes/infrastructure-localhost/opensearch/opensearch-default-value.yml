@@ -142,12 +142,12 @@ podAnnotations:
 # additionals labels
 labels: {}
 
-opensearchJavaOpts: "-Xmx512M -Xms512M"
+opensearchJavaOpts: "-Xmx256M -Xms56M"
 
 resources:
   limits:
-    cpu: "1000m"
-    memory: "2000Mi"
+    cpu: "500m"
+    memory: "1000Mi"
 
 initResources:
   {}
