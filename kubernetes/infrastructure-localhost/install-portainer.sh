@@ -1,3 +1,5 @@
+# please open built-in portainer of microk8s, when your cluster is based on microk8s
+
 NAMESPACE=monitoring
 PORTAINER_NAME=portainer-service
 PORTAINER_WP=portainer

@@ -7,3 +7,4 @@ helm repo add bitnami https://charts.bitnami.com/bitnami
 helm repo add portainer https://portainer.github.io/k8s/
 helm repo add mssql-server-2019 https://simcubeltd.github.io/simcube-helm-charts/
 
+helm repo update
