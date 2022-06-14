@@ -1,7 +1,7 @@
 ﻿using nClam;
 
 var clamClient   = new ClamClient("localhost", 3310);
-var text         = await File.ReadAllTextAsync("./fiinpro_sessions.saz");
+var text         = await File.ReadAllTextAsync("./scanner.txt");
 var memoryStream = new MemoryStream();
 var streamWriter = new StreamWriter(memoryStream);
 await streamWriter.WriteAsync(text);
