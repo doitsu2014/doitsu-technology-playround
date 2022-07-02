@@ -5,15 +5,28 @@ use std::{
 };
 
 struct Configuration {
-    is_debug: bool
+    is_debug: bool,
+    speed_up: f64,
 }
 
-fn get_qrcodes_from_video(video_file_path: &str) -> Result<()> {
-    let configuration = Configuration { is_debug: true };
+pub fn get_qr_codes_from_video(video_file_path: &str) -> Result<HashMap<u64, String>> {
+    let configuration = Configuration { is_debug: false, speed_up: 0.25 };
     let mut qr_detector = objdetect::QRCodeDetector::default()?;
     let mut res = types::VectorOfPoint::new();
-    let mut camera =
-        videoio::VideoCapture::from_file(video_file_path, videoio::CAP_ANY)?;
+    // let mut capture = videoio::VideoCapture::from_file(video_file_path, videoio::CAP_PROP_FRAME_COUNT)?;
+
+
+    println!("loading video path: {}", video_file_path);
+    let mut camera = videoio::VideoCapture::from_file(video_file_path, videoio::CAP_ANY)?;
+    let frames = camera.get(videoio::CAP_PROP_FRAME_COUNT)?;
+    let fps = camera.get(videoio::CAP_PROP_FPS)?;
+    println!("fps: {}", fps);
+    let duration = frames/fps;
+    println!("Duration (s): {}", duration);
+    let new_fps= fps + (fps * 0.25);
+    let result_setting_new_fps = camera.set(videoio::CAP_PROP_FPS, new_fps)?;
+    println!("Setting new fps result: {}", result_setting_new_fps);
+
     let mut img = Mat::default();
     let mut recqr = Mat::default();
     let mut qr_codes: HashMap<u64, String> = HashMap::new();
@@ -30,6 +43,7 @@ fn get_qrcodes_from_video(video_file_path: &str) -> Result<()> {
         if !s.is_empty() {
             let calculated_hash = calculate_hash(&s.to_string());
             if !qr_codes.contains_key(&calculated_hash) {
+                println!("find a qr code {}", s);
                 qr_codes.insert(calculated_hash, s.to_string());
             }
         }
@@ -51,20 +65,10 @@ fn get_qrcodes_from_video(video_file_path: &str) -> Result<()> {
                 )?;
             }
             highgui::imshow("Frame", &img)?;
-            let key = highgui::wait_key(1)?;
-            if key == 'q' as i32 {
-                break;
-            }
         }
     }
 
-    // Print the HashMap of Qr Code Values
-    qr_codes.into_iter().for_each(|x| {
-        println!("Browsing qr code: {}", x.0);
-        println!("Values: {}", x.1);
-    });
-
-    Ok(())
+    Ok(qr_codes)
 }
 
 fn calculate_hash<T: Hash>(t: &T) -> u64 {
@@ -72,8 +76,6 @@ fn calculate_hash<T: Hash>(t: &T) -> u64 {
     t.hash(&mut s);
     s.finish()
 }
-
-
 
 #[cfg(test)]
 mod tests {
